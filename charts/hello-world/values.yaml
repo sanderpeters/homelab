@@ -1,0 +1,5 @@
+nginx:
+  replicaCount: 1
+  staticSiteConfigmap: hello-world-content
+  image:
+    tag: latest

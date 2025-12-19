@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scan
+spec:
+  template:
+    spec:
+      containers:
+        - name: clamav
+          image: xrowpublic/helm-clamav:1.7.34
+          command: ["clamscan", "-r", "/"]
+          volumeMounts:
+            - name: downloads
+              mountPath: /downloads/complete
+      restartPolicy: Never
+      volumes:
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: downloads

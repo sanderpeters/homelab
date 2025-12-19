@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: configure-deluge
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      containers:
+        - name: configure
+          image: curlimages/curl
+          command:
+            - sh
+            - -c
+            - |
+              # Wait for Deluge to be ready
+              echo "Waiting for Deluge to start..."
+              until curl -s http://deluge:8112 > /dev/null; do
+                sleep 5
+              done
+
+              echo "Authenticating with Deluge..."
+
+              # Login (default password is empty/deluge)
+              SESSION=$(curl -s -X POST http://deluge:8112/json \
+                -H "Content-Type: application/json" \
+                -d '{"method":"auth.login","params":["deluge"],"id":1}' \
+                -c /tmp/cookies.txt \
+                | grep -o '"result":[^,]*' | cut -d: -f2)
+
+              echo "Login result: $SESSION"
+
+              echo "Configuring Deluge paths..."
+
+              # Set download locations (use saved cookies)
+              curl -s -X POST http://deluge:8112/json \
+                -H "Content-Type: application/json" \
+                -b /tmp/cookies.txt \
+                -d '{
+                  "method": "core.set_config",
+                  "params": [{
+                    "download_location": "/downloads/incomplete",
+                    "move_completed": true,
+                    "move_completed_path": "/downloads/complete",
+                    "torrentfiles_location": "/downloads/torrents",
+                    "copy_torrent_file": true
+                  }],
+                  "id": 1
+                }'
+
+              echo "Configuration complete!"
+      restartPolicy: Never
+  backoffLimit: 3

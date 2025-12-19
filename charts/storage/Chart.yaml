@@ -1,0 +1,4 @@
+apiVersion: v2
+name: storage
+version: 0.1.0
+description: Shared storage resources for homelab

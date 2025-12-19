@@ -1,0 +1,4 @@
+image:
+  repository: mdodockx/docker-clamav
+  tag: alpine
+  pullPolicy: IfNotPresent

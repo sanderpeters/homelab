@@ -1,0 +1,8 @@
+write-kubeconfig-mode: "0645"
+node-ip: 192.168.0.2
+https-listen-port: 6443
+tls-san:
+  - "homelab.local"
+disable: ["servicelb", "traefik"]
+kube-apiserver-arg:
+  - "feature-gates=TTLAfterFinished=true"
