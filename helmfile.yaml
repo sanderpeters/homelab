@@ -21,11 +21,6 @@ releases:
   - name: cockpit
     chart: ./charts/cockpit
     namespace: homelab
-  - name: deluge
-    chart: ./charts/deluge
-    namespace: homelab
-    values:
-      - ./charts/deluge/values.yaml
   - name: storage
     chart: ./charts/storage
     namespace: homelab

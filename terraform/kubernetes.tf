@@ -32,3 +32,16 @@ resource "kubernetes_limit_range_v1" "homelab_limits" {
     }
   }
 }
+
+resource "kubernetes_secret" "anubis_key" {
+  metadata {
+    name      = "anubis-key"
+    namespace = "homelab"
+  }
+
+  data = {
+    ED25519_PRIVATE_KEY_HEX = var.anubis_private_key
+  }
+
+  type = "Opaque"
+}

@@ -1,0 +1,33 @@
+{{- define "anubis.policy" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: anubis-policy
+  namespace: {{ .Release.Namespace }}
+data:
+  policy.yaml: |
+    bots:
+      - name: bot-user-agents
+        action: WEIGH
+        user_agent_regex: '(?i:bot|crawler|scraper|spider)'
+        weight:
+          adjust: 8
+      - name: catch-all-traffic
+        action: WEIGH
+        user_agent_regex: '.*'
+        weight:
+          adjust: 0
+    thresholds:
+      - name: challenge-all
+        expression: weight >= 0
+        action: CHALLENGE
+        challenge:
+          algorithm: fast
+          difficulty: 6
+      - name: extreme-bots
+        expression: weight >= 20
+        action: CHALLENGE
+        challenge:
+          algorithm: fast
+          difficulty: 10
+{{- end -}}

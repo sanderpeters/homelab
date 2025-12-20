@@ -18,6 +18,15 @@ This is meant as a personal playground for learning infrastructure automation, C
 I just needed a repository to push my code to, feel free to steal it.
 
 ## Configuration
+
+### Anubis
+This setup uses Anubis to stop those pesky bots, we need a secret first:
+```shell
+openssl genpkey -algorithm ED25519 -out ed25519.pem
+openssl pkey -in ed25519.pem -outform DER | tail -c 32 | xxd -p -c 32
+```
+and then we can pass this as a tfvar
+
 ## Features
 
 - Single-node **K3s Kubernetes cluster** running on a Mac Pro.

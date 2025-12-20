@@ -4,7 +4,8 @@ metadata:
   name: hello-world-ingress
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
-    traefik.ingress.kubernetes.io/redirect-entry-point: https
+    traefik.ingress.kubernetes.io/redirect-to-https: "true"
+    traefik.ingress.kubernetes.io/pass-client-ip: "true"
 spec:
   tls:
     - hosts:
@@ -18,6 +19,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: hello-world-nginx
+                name: {{ .Release.Name }}-anubis
                 port:
-                  number: 80
+                  name: anubis

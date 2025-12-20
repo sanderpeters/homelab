@@ -1,0 +1,7 @@
+apiVersion: v2
+name: rflood
+version: 0.1.0
+dependencies:
+  - name: rflood
+    version: "8.12.1"
+    repository: "oci://oci.trueforge.org/truecharts/rflood"

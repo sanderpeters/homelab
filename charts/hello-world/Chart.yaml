@@ -2,6 +2,6 @@ apiVersion: v2
 name: hello-world
 version: 0.1.0
 dependencies:
-  - name: nginx
-    version: "18.2.4"
-    repository: "https://charts.bitnami.com/bitnami"
+  - name: anubis
+    version: "*"
+    repository: "file://../anubis"

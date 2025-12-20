@@ -2,6 +2,7 @@ deluge:
   env:
     TZ: "Europe/Amsterdam"
 
+
   persistence:
     config:
       enabled: true
