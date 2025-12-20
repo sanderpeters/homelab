@@ -9,6 +9,11 @@ data:
     <html>
     <head>
         <title>Hello World</title>
+        <style>
+        * {
+            font-family: "Comic Sans MS"
+        }
+        </style>
     </head>
     <body>
     <h1>Hello World from K3s!</h1>

@@ -1,14 +1,15 @@
 deluge:
   env:
     TZ: "Europe/Amsterdam"
+
   persistence:
     config:
       enabled: true
+      mountPath: /config
       type: pvc
       size: 1Gi
-      mountPath: /config
     downloads:
       enabled: true
+      mountPath: /downloads
       type: pvc
       existingClaim: downloads
-      mountPath: /downloads

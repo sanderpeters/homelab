@@ -3,16 +3,17 @@ kind: Ingress
 metadata:
   name: cockpit-ingress
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned-issuer
+    cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
     traefik.ingress.kubernetes.io/service.serversscheme: https
     traefik.ingress.kubernetes.io/preserve-host: "true"
 spec:
   tls:
     - hosts:
-        - cockpit.homelab.internal
+        - cockpit.sanderpeters.cloud
       secretName: cockpit-tls
   rules:
-    - host: cockpit.homelab.internal
+    - host: cockpit.sanderpeters.cloud
       http:
         paths:
           - path: /

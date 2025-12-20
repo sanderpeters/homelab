@@ -3,14 +3,15 @@ kind: Ingress
 metadata:
   name: deluge-ingress
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned-issuer
+    cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   tls:
     - hosts:
-        - deluge.homelab.internal
+        - deluge.sanderpeters.cloud
       secretName: deluge-tls
   rules:
-    - host: deluge.homelab.internal
+    - host: deluge.sanderpeters.cloud
       http:
         paths:
           - path: /

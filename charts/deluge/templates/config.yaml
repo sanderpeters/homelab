@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: configure-deluge
+  name: deluge-config
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "5"

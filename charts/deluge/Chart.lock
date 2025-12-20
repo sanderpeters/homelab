@@ -1,0 +1,6 @@
+dependencies:
+- name: deluge
+  repository: https://k8s-at-home.com/charts
+  version: 5.4.2
+digest: sha256:f72ddeea690b4cd2bb70bd12b83351b6e93111677dd497b3b0143ef0368594e8
+generated: "2025-12-20T00:49:15.202324775+01:00"

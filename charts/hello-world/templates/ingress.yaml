@@ -3,14 +3,15 @@ kind: Ingress
 metadata:
   name: hello-world-ingress
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned-issuer
+    cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   tls:
     - hosts:
-        - hello.homelab.internal
+        - sanderpeters.cloud
       secretName: hello-world-tls
   rules:
-    - host: hello.homelab.internal
+    - host: sanderpeters.cloud
       http:
         paths:
           - path: /

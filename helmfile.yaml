@@ -1,0 +1,36 @@
+repositories:
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: bitnami
+    url:  https://charts.bitnami.com/bitnami
+---
+releases:
+  - name: cert-manager
+    chart: ./charts/cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    values:
+      - ./charts/cert-manager/values.yaml
+  - name: clamav
+    chart: ./charts/clamav
+    namespace: homelab
+    values:
+      - ./charts/clamav/values.yaml
+  - name: cockpit
+    chart: ./charts/cockpit
+    namespace: homelab
+  - name: deluge
+    chart: ./charts/deluge
+    namespace: homelab
+    values:
+      - ./charts/deluge/values.yaml
+  - name: storage
+    chart: ./charts/storage
+    namespace: homelab
+  - name: hello-world
+    chart: ./charts/hello-world
+    namespace: homelab
+    values:
+      - ./charts/hello-world/values.yaml
