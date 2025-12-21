@@ -1,0 +1,48 @@
+kube-prometheus-stack:
+  crds:
+    enabled: true
+
+  grafana:
+    enabled: true
+    adminPassword: admin # override via secret in real setups
+    defaultDashboardsEnabled: true
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hosts:
+        - grafana.sanderpeters.cloud
+      paths:
+        - /
+      pathType: Prefix
+      tls:
+        - hosts:
+            - grafana.sanderpeters.cloud
+          secretName: grafana-tls
+
+  prometheus:
+    enabled: true
+    prometheusSpec:
+      retention: 7d
+      scrapeInterval: 30s
+      evaluationInterval: 30s
+
+  alertmanager:
+    enabled: false
+
+  kubeControllerManager:
+    enabled: false
+  kubeScheduler:
+    enabled: false
+  kubeProxy:
+    enabled: false
+  kubeEtcd:
+    enabled: false
+
+  nodeExporter:
+    enabled: true
+
+  kubeStateMetrics:
+    enabled: true
