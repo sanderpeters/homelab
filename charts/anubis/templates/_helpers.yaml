@@ -7,7 +7,7 @@
     - name: BIND
       value: ":8080"
     - name: TARGET
-      value: "http://localhost:80"
+      value: {{ .Values.anubis.target | quote }} # "http://localhost:80"
     - name: POLICY_FNAME
       value: "/etc/anubis/policy.yaml"
     - name: OG_EXPIRY_TIME
@@ -17,9 +17,9 @@
     - name: SECURE_COOKIE
       value: "true"
     - name: COOKIE_DOMAIN
-      value: "sanderpeters.cloud"
+      value: {{ .Values.anubis.domain | quote }} # "sanderpeters.cloud"
     - name: REDIRECT_DOMAINS
-      value: "sanderpeters.cloud"
+      value: {{ .Values.anubis.domain | quote }} # "sanderpeters.cloud"
     - name: USE_REMOTE_ADDRESS
       value: "true"
     - name: ED25519_PRIVATE_KEY_HEX

@@ -24,3 +24,12 @@ variable "anubis_private_key" {
   type = string
   sensitive = true
 }
+
+variable "transmission_username" {
+  type = string
+}
+
+variable "transmission_password" {
+  type = string
+  sensitive = true
+}

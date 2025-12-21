@@ -21,14 +21,16 @@ releases:
     createNamespace: true
     values:
       - ./charts/traefik-gateway-controller/values.yaml
-  - name: clamav
-    chart: ./charts/clamav
+  - name: transmission-flood
+    chart: ./charts/transmission-flood
     namespace: homelab
     values:
-      - ./charts/clamav/values.yaml
-  - name: storage
-    chart: ./charts/storage
-    namespace: homelab
+      - ./charts/transmission-flood/values.yaml
+#  - name: clamav
+#    chart: ./charts/clamav
+#    namespace: homelab
+#    values:
+#      - ./charts/clamav/values.yaml
   - name: hello-world
     chart: ./charts/hello-world
     namespace: homelab

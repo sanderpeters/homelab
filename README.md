@@ -18,6 +18,7 @@ This is meant as a personal playground for learning infrastructure automation, C
 I just needed a repository to push my code to, feel free to steal it.
 
 ## Configuration
+`kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.32/deploy/local-path-storage.yaml`
 
 ### Terraform vars
 ```terraform

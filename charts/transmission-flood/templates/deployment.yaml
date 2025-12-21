@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-anubis
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-anubis
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+      containers:
+        {{- include "anubis.container" . | nindent 8 }}
+        - name: transmission
+          image: lscr.io/linuxserver/transmission:latest
+          ports:
+            - containerPort: 9091
+              name: web
+            - containerPort: 51413
+              name: torrent-tcp
+            - containerPort: 51414
+              name: torrent-udp
+              protocol: UDP
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Amsterdam"
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  name: transmission-auth
+                  key: username
+            - name: PASS
+              valueFrom:
+                secretKeyRef:
+                  name: transmission-auth
+                  key: password
+          volumeMounts:
+            - name: transmission-config
+              mountPath: /config
+            - name: downloads
+              mountPath: /downloads
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        - name: flood
+          image: jesec/flood:latest
+          ports:
+            - containerPort: 3000
+              name: flood-web
+          env:
+            - name: FLOOD_OPTION_HOST
+              value: "0.0.0.0"
+            - name: FLOOD_OPTION_PORT
+              value: "3000"
+            - name: FLOOD_OPTION_RUNDIR
+              value: "/data"
+            - name: FLOOD_OPTION_TRANSMISSION
+              value: "true"
+            - name: FLOOD_OPTION_TRURL
+              value: "http://localhost:9091/transmission/rpc"
+            - name: FLOOD_OPTION_TRUSER
+              valueFrom:
+                secretKeyRef:
+                  name: transmission-auth
+                  key: username
+            - name: FLOOD_OPTION_TRPASS
+              valueFrom:
+                secretKeyRef:
+                  name: transmission-auth
+                  key: password
+          volumeMounts:
+            - name: flood-data
+              mountPath: /data
+            - name: downloads
+              mountPath: /downloads
+              readOnly: true
+      volumes:
+        - name: transmission-config
+          hostPath:
+            path: /mnt/homelab/transmission-config
+            type: DirectoryOrCreate
+        - name: flood-data
+          hostPath:
+            path: /mnt/homelab/flood-data
+            type: DirectoryOrCreate
+        - name: downloads
+          hostPath:
+            path: /mnt/homelab/downloads
+            type: DirectoryOrCreate
+        {{- include "anubis.volume" . | nindent 8 }}

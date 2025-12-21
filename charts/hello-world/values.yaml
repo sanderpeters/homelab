@@ -1,8 +1,4 @@
-#nginx:
-#  replicaCount: 1
-#  staticSiteConfigmap: hello-world-content
-#  image:
-#    tag: latest
-
 anubis:
-  port: 80
+  target: "http://localhost:80"
+  domain: "sanderpeters.cloud"
+  service: "hello-world"

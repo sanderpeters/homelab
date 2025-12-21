@@ -1,4 +1,4 @@
 apiVersion: v2
 name: anubis
-type: library
+type: application
 version: 0.1.0

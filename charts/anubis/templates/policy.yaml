@@ -1,9 +1,8 @@
-{{- define "anubis.policy" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: anubis-policy
-  namespace: {{ .Release.Namespace }}
+  namespace: homelab
 data:
   policy.yaml: |
     bots:
@@ -30,4 +29,3 @@ data:
         challenge:
           algorithm: fast
           difficulty: 10
-{{- end -}}

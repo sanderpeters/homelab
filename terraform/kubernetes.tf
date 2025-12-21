@@ -58,3 +58,17 @@ resource "kubernetes_secret" "cloudflare_api_token" {
 
   type = "Opaque"
 }
+
+resource "kubernetes_secret" "transmission_auth" {
+  metadata {
+    name = "transmission-auth"
+    namespace = "homelab"
+  }
+
+  data = {
+    username = var.transmission_username
+    password = var.transmission_password
+  }
+
+  type = "Opaque"
+}
