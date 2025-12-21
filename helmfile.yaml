@@ -7,6 +7,8 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: traefik
     url: https://traefik.github.io/charts
+  - name: jellyfin
+    url: https://jellyfin.github.io/jellyfin-helm
 ---
 releases:
   - name: cert-manager
@@ -26,6 +28,11 @@ releases:
     namespace: homelab
     values:
       - ./charts/transmission-flood/values.yaml
+  - name: jellyfin
+    chart: ./charts/jellyfin
+    namespace: homelab
+    values:
+      - ./charts/jellyfin/values.yaml
 #  - name: clamav
 #    chart: ./charts/clamav
 #    namespace: homelab

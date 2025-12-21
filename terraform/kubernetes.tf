@@ -10,6 +10,10 @@ resource "kubernetes_namespace_v1" "homelab" {
       app = "homelab"
     }
   }
+
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 resource "kubernetes_limit_range_v1" "homelab_limits" {
