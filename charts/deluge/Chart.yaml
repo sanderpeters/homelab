@@ -1,7 +1,0 @@
-apiVersion: v2
-name: deluge
-version: 0.1.0
-dependencies:
-  - name: deluge
-    version: "5.4.2"
-    repository: "https://k8s-at-home.com/charts"

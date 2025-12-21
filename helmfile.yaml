@@ -3,8 +3,10 @@ repositories:
     url: https://k8s-at-home.com/charts
   - name: jetstack
     url: https://charts.jetstack.io
-  - name: bitnami
-    url:  https://charts.bitnami.com/bitnami
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: traefik
+    url: https://traefik.github.io/charts
 ---
 releases:
   - name: cert-manager
@@ -13,14 +15,17 @@ releases:
     createNamespace: true
     values:
       - ./charts/cert-manager/values.yaml
+  - name: traefik-gateway-controller
+    chart: ./charts/traefik-gateway-controller
+    namespace: traefik-gateway-controller
+    createNamespace: true
+    values:
+      - ./charts/traefik-gateway-controller/values.yaml
   - name: clamav
     chart: ./charts/clamav
     namespace: homelab
     values:
       - ./charts/clamav/values.yaml
-  - name: cockpit
-    chart: ./charts/cockpit
-    namespace: homelab
   - name: storage
     chart: ./charts/storage
     namespace: homelab
@@ -29,3 +34,9 @@ releases:
     namespace: homelab
     values:
       - ./charts/hello-world/values.yaml
+#  - name: kube-prometheus-stack
+#    chart: ./charts/kube-prometheus-stack
+#    namespace: monitoring
+#    createNamespace: true
+#    values:
+#      - ./charts/kube-prometheus-stack/values.yaml

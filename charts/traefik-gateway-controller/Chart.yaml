@@ -1,0 +1,9 @@
+apiVersion: v2
+name: traefik-gateway-controller
+description: "Wrapper chart for Traefik in Gateway API-only mode"
+type: application
+version: 0.1.0
+dependencies:
+  - name: traefik
+    version: 38.0.1
+    repository: https://traefik.github.io/charts

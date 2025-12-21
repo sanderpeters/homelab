@@ -17,7 +17,7 @@ variable "root_domain" {
 
 variable "subdomains" {
   type = list(string)
-  default = ["flood", "cockpit"]
+  default = ["flood", "cockpit", "grafana"]
 }
 
 variable "anubis_private_key" {

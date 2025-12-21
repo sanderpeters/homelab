@@ -19,16 +19,28 @@ I just needed a repository to push my code to, feel free to steal it.
 
 ## Configuration
 
-### Anubis
-This setup uses Anubis to stop those pesky bots, we need a secret first:
+### Terraform vars
+```terraform
+cloudflare_api_token = "<cloudflare api token>"
+cloudflare_zone_id   = "<cloudflare zone id>"
+homelab_ip_address   = "<external ip>"
+root_domain = "<root domain>"
+anubis_private_key = "<anubis private key>"
+```
+
+Most of the values can be configured from what you can find in cloudflare, for the other values, I suppose you know them 😅
+
+Regarding the anubis private key, this needs to be a 32-bits string:
 ```shell
 openssl genpkey -algorithm ED25519 -out ed25519.pem
 openssl pkey -in ed25519.pem -outform DER | tail -c 32 | xxd -p -c 32
 ```
-and then we can pass this as a tfvar
+This will keep the pesky bots out.
+
+### Secrets
+All secrets are created via terraform, this does require a bit of configuration.
 
 ## Features
-
 - Single-node **K3s Kubernetes cluster** running on a Mac Pro.
 - Helm-managed applications:
     - **Deluge** (with deluge-web)

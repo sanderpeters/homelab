@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gateway-tls
+  namespace: traefik-gateway-controller
+spec:
+  secretName: gateway-tls
+  issuerRef:
+    name: letsencrypt-staging-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - sanderpeters.cloud
+    - "*.sanderpeters.cloud"
