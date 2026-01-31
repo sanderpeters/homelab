@@ -3,6 +3,11 @@ provider "kubernetes" {
   config_context = "Default"
 }
 
+resource "random_string" "anubis_key" {
+  length  = 64
+  special = false
+}
+
 resource "kubernetes_secret" "anubis_key" {
   metadata {
     name      = "anubis-key"
@@ -10,7 +15,7 @@ resource "kubernetes_secret" "anubis_key" {
   }
 
   data = {
-    ED25519_PRIVATE_KEY_HEX = var.anubis_private_key
+    ED25519_PRIVATE_KEY_HEX = random_string.anubis_key.result
   }
 
   type = "Opaque"
@@ -29,6 +34,16 @@ resource "kubernetes_secret" "cloudflare_api_token" {
   type = "Opaque"
 }
 
+resource "random_string" "transmission_username" {
+  length  = 32
+  special = false
+}
+
+resource "random_string" "transmission_password" {
+  length  = 32
+  special = true
+}
+
 resource "kubernetes_secret" "transmission_auth" {
   metadata {
     name      = "transmission-auth"
@@ -36,8 +51,8 @@ resource "kubernetes_secret" "transmission_auth" {
   }
 
   data = {
-    username = var.transmission_username
-    password = var.transmission_password
+    username = random_string.transmission_username.result
+    password = random_string.transmission_password.result
   }
 
   type = "Opaque"
