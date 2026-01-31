@@ -43,9 +43,3 @@ releases:
     namespace: homelab
     values:
       - ./charts/hello-world/values.yaml
-#  - name: kube-prometheus-stack
-#    chart: ./charts/kube-prometheus-stack
-#    namespace: monitoring
-#    createNamespace: true
-#    values:
-#      - ./charts/kube-prometheus-stack/values.yaml
