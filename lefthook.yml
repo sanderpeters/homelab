@@ -1,0 +1,39 @@
+commit-msg:
+  commands:
+    conventional-commit:
+      run: |
+        msg=$(head -n 1 {1})
+
+        echo "Checking commit message:"
+        echo "  $msg"
+
+        echo "$msg" | grep -Eq \
+        '^(feat|fix|refactor|chore|docs|test|perf|ci|build)(\([a-zA-Z0-9_-]+\))?: .+' \
+        || {
+          echo ""
+          echo "❌ Invalid commit message"
+          echo "Expected format:"
+          echo "  feat(scope): description"
+          echo "Examples:"
+          echo "  feat(vpc): add private subnet"
+          echo "  fix(terraform): correct cidr overlap"
+          exit 1
+        }
+
+
+pre-commit:
+  parallel: true
+  commands:
+    tofu_fmt:
+      glob: "**/*.tf"
+      run: tofu fmt -check -recursive
+
+    tofu_validate:
+      run: tofu validate
+      skip:
+        - merge
+        - rebase
+
+    helm_lint:
+      glob: "**/Chart.yaml"
+      run: helm lint $(dirname {file})
