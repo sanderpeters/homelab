@@ -1,7 +1,9 @@
 terraform {
   required_version = ">= 1.5.0"
 
-  backend "local" {
-    path = "terraform.tfstate"
+  backend "kubernetes" {
+    secret_suffix = "state"
+    config_path   = "~/.kube/config"
+    namespace     = "tofu"
   }
 }
