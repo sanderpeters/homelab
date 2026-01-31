@@ -3,9 +3,8 @@ provider "kubernetes" {
   config_context = "Default"
 }
 
-resource "random_string" "anubis_key" {
-  length  = 64
-  special = false
+resource "random_bytes" "anubis_key" {
+  length = 32
 }
 
 resource "kubernetes_secret" "anubis_key" {
@@ -15,7 +14,7 @@ resource "kubernetes_secret" "anubis_key" {
   }
 
   data = {
-    ED25519_PRIVATE_KEY_HEX = random_string.anubis_key.result
+    ED25519_PRIVATE_KEY_HEX = random_bytes.anubis_key.hex
   }
 
   type = "Opaque"
