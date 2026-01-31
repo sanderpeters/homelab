@@ -28,25 +28,25 @@ resource "kubernetes_secret" "cloudflare_api_token" {
   type = "Opaque"
 }
 
-resource "random_string" "transmission_username" {
-  length  = 32
+resource "random_password" "deluge_username" {
+  length  = 16
   special = false
 }
 
-resource "random_string" "transmission_password" {
-  length  = 32
-  special = true
+resource "random_password" "deluge_password" {
+  length  = 16
+  special = false
 }
 
-resource "kubernetes_secret" "transmission_auth" {
+resource "kubernetes_secret" "deluge_auth" {
   metadata {
-    name      = "transmission-auth"
+    name      = "deluge-auth"
     namespace = "homelab"
   }
 
   data = {
-    username = random_string.transmission_username.result
-    password = random_string.transmission_password.result
+    username = random_password.deluge_username.result
+    password = random_password.deluge_password.result
   }
 
   type = "Opaque"

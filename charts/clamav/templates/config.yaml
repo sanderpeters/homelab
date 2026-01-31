@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clamav-config
+data:
+  clamd.conf: |
+    # Use the shared socket
+    LocalSocket /run/clamd/clamd.sock
+    FixStaleSocket yes
+    TCPSocket 0
+    LogFile /var/log/clamav/clamd.log
+    DatabaseDirectory /var/lib/clamav

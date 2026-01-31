@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deluge-config
+  namespace: homelab
+data:
+  core.conf: |
+    {
+      "file": 1,
+      "format": 1
+    },
+    "daemon_port": 58846,
+    "allow_remote": true,
+    "download_location": "/downloads",
+    "listen_ports": [6881, 6891],
+    "random_port": false
+  web.conf: |
+    {
+      "file": 1,
+      "format": 1
+    },
+    "port": 8112,
+    "enabled": true

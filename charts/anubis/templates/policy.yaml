@@ -22,10 +22,10 @@ data:
         action: CHALLENGE
         challenge:
           algorithm: fast
-          difficulty: 6
+          difficulty: 2
       - name: extreme-bots
         expression: weight >= 20
         action: CHALLENGE
         challenge:
           algorithm: fast
-          difficulty: 10
+          difficulty: 4

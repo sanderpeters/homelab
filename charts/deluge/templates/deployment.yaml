@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      initContainers:
+        - name: init-deluge-config
+          image: alpine:latest
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /config/.config/deluge
+              rm -f /config/.config/deluge/core.conf
+              rm -f /config/.config/deluge/web.conf
+              cp /config-files/core.conf /config/.config/deluge/core.conf
+              cp /config-files/web.conf /config/.config/deluge/web.conf
+              chmod -R 755 /config
+          volumeMounts:
+            - name: deluge-config
+              mountPath: /config
+            - name: config-files
+              mountPath: /config-files
+      containers:
+        - name: deluge
+          image: lscr.io/linuxserver/deluge:latest
+          ports:
+            - containerPort: 8112
+              name: web
+            - containerPort: 58846
+              name: daemon
+            - containerPort: 6881
+              name: torrent-tcp
+            - containerPort: 6881
+              name: torrent-udp
+              protocol: UDP
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Amsterdam"
+            - name: DELUGE_LOGLEVEL
+              value: "info"
+          volumeMounts:
+            - name: deluge-config
+              mountPath: /config
+            - name: downloads
+              mountPath: /downloads
+            - name: config-files
+              mountPath: /config/.config/deluge/web.conf
+              subPath: web.conf
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+      volumes:
+        - name: deluge-config
+          hostPath:
+            path: /mnt/homelab/deluge-config
+            type: DirectoryOrCreate
+        - name: config-files
+          configMap:
+            name: deluge-config
+        - name: downloads
+          hostPath:
+            path: /mnt/homelab/downloads
+            type: DirectoryOrCreate

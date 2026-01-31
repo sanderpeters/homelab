@@ -17,25 +17,65 @@ spec:
       securityContext:
         runAsNonRoot: false
       containers:
-        - name: clamav
+        # ClamAV daemon container
+        - name: clamd
           image: clamav/clamav:latest
-          imagePullPolicy: IfNotPresent
-          command: ["/usr/bin/freshclam", "-d", "--foreground=yes"]
+          command:
+            - /usr/sbin/clamd
+            - -c
+            - /etc/clamav/clamd.conf
           volumeMounts:
             - name: downloads
               mountPath: /downloads
-              readOnly: true
             - name: clamav-db
               mountPath: /var/lib/clamav
             - name: clamav-run
               mountPath: /run/clamd
-      resources:
-        requests:
-          memory: 1Gi
-          cpu: 500m
-        limits:
-          memory: 4Gi
-          cpu: 2
+            - name: clamd-conf
+              mountPath: /etc/clamav/clamd.conf
+              subPath: clamd.conf
+          # requests/limits stay untouched
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 500m
+            limits:
+              memory: 4Gi
+              cpu: 2
+
+        # Scanner sidecar
+        - name: scanner
+          image: clamav/clamav:latest
+          command:
+            - sh
+            - -c
+            - |
+              # wait for clamd socket
+              while [ ! -S /run/clamd/clamd.sock ]; do sleep 1; done
+              echo "Starting scanning loop..."
+              while true; do
+                clamdscan --fdpass --multiscan /downloads
+                sleep 30
+              done
+          volumeMounts:
+            - name: downloads
+              mountPath: /downloads
+            - name: clamav-db
+              mountPath: /var/lib/clamav
+            - name: clamav-run
+              mountPath: /run/clamd
+            - name: clamd-conf
+              mountPath: /etc/clamav/clamd.conf
+              subPath: clamd.conf
+          # requests/limits stay untouched
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 250m
+            limits:
+              memory: 512Mi
+              cpu: 500m
+
       volumes:
         - name: downloads
           hostPath:
@@ -46,3 +86,9 @@ spec:
             claimName: clamav-db-pvc
         - name: clamav-run
           emptyDir: {}
+        - name: clamd-conf
+          configMap:
+            name: clamav-config
+            items:
+              - key: clamd.conf
+                path: clamd.conf

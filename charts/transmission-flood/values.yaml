@@ -1,4 +1,0 @@
-anubis:
-  target: "http://localhost:3000"
-  domain: "flood.sanderpeters.cloud"
-  service: "transmission-flood"

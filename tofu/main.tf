@@ -4,7 +4,7 @@ module "cloudflare" {
   cloudflare_zone_id   = var.cloudflare_zone_id
   homelab_ip_address   = var.homelab_ip_address
   root_domain          = var.root_domain
-  subdomains           = ["flood", "cockpit", "grafana", "watch"]
+  subdomains           = ["flood", "download", "watch"]
 }
 
 module "kubernetes" {

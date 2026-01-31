@@ -23,11 +23,11 @@ releases:
     createNamespace: true
     values:
       - ./charts/traefik-gateway-controller/values.yaml
-  - name: transmission-flood
-    chart: ./charts/transmission-flood
+  - name: deluge
+    chart: ./charts/deluge
     namespace: homelab
     values:
-      - ./charts/transmission-flood/values.yaml
+      #- ./charts/deluge/values.yaml
   - name: jellyfin
     chart: ./charts/jellyfin
     namespace: homelab

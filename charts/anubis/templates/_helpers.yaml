@@ -28,7 +28,7 @@
           name: anubis-key
           key: ED25519_PRIVATE_KEY_HEX
     - name: DIFFICULTY
-      value: "12"
+      value: "6"
   volumeMounts:
     - name: anubis-policy
       mountPath: /etc/anubis
