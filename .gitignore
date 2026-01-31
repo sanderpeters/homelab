@@ -250,5 +250,4 @@ tags
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,linux,helm,terraform,python
 
-
-config/kube.yaml
+.idea/
