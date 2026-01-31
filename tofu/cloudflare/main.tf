@@ -2,29 +2,29 @@ terraform {
   required_providers {
     cloudflare = {
       source  = "registry.opentofu.org/cloudflare/cloudflare"
-      version = ">= 1.0.0"
+      version = "~> 4.0"
     }
   }
 }
 
 provider "cloudflare" {
-  api_token = var.cloudflare_api_token
+  api_token = var.api_token
 }
 
 resource "cloudflare_record" "root" {
-  zone_id = var.cloudflare_zone_id
+  zone_id = var.zone_id
   name    = "@"
   type    = "A"
   content = var.homelab_ip_address
-  proxied = false
+  proxied = true
 }
 
 resource "cloudflare_record" "subdomain" {
   for_each = toset(var.subdomains)
-  zone_id  = var.cloudflare_zone_id
+  zone_id  = var.zone_id
   name     = each.value
   type     = "CNAME"
   content  = var.root_domain
   ttl      = 1
-  proxied  = false
+  proxied  = true
 }

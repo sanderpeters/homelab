@@ -1,4 +1,4 @@
-variable "cloudflare_api_token" {
+variable "api_token" {
   type      = string
   sensitive = true
 }
@@ -7,7 +7,7 @@ variable "homelab_ip_address" {
   type = string
 }
 
-variable "cloudflare_zone_id" {
+variable "zone_id" {
   type = string
 }
 
