@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clamav
+  labels:
+    app: clamav
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clamav
+  template:
+    metadata:
+      labels:
+        app: clamav
+    spec:
+      securityContext:
+        runAsNonRoot: false
+      containers:
+        - name: clamav
+          image: clamav/clamav:latest
+          imagePullPolicy: IfNotPresent
+          command: ["/usr/bin/freshclam", "-d", "--foreground=yes"]
+          volumeMounts:
+            - name: downloads
+              mountPath: /downloads
+              readOnly: true
+            - name: clamav-db
+              mountPath: /var/lib/clamav
+            - name: clamav-run
+              mountPath: /run/clamd
+      resources:
+        requests:
+          memory: 1Gi
+          cpu: 500m
+        limits:
+          memory: 4Gi
+          cpu: 2
+      volumes:
+        - name: downloads
+          hostPath:
+            path: /mnt/homelab/downloads/complete
+            type: DirectoryOrCreate
+        - name: clamav-db
+          persistentVolumeClaim:
+            claimName: clamav-db-pvc
+        - name: clamav-run
+          emptyDir: {}

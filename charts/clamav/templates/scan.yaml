@@ -5,15 +5,49 @@ metadata:
 spec:
   template:
     spec:
+      restartPolicy: Never
+      initContainers:
+        - name: wait-for-db
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              until [ -f /var/lib/clamav/daily.cvd ]; do echo "waiting for DB"; sleep 5; done
+          volumeMounts:
+            - name: clamav-db
+              mountPath: /var/lib/clamav
       containers:
-        - name: clamav
-          image: xrowpublic/helm-clamav:1.7.34
-          command: ["clamscan", "-r", "/"]
+        - name: clamd
+          image: clamav/clamav:latest
+          command:
+            - sh
+            - -c
+            - |
+              /usr/sbin/clamd -c /etc/clamav/clamd.conf &
+              sleep 5
+              clamdscan -r /downloads/complete
           volumeMounts:
             - name: downloads
               mountPath: /downloads/complete
-      restartPolicy: Never
+            - name: clamav-db
+              mountPath: /var/lib/clamav
+            - name: clamav-run
+              mountPath: /run/clamd
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 500m
+            limits:
+              memory: 3Gi
+              cpu: 2
       volumes:
         - name: downloads
+          hostPath:
+            path: /mnt/homelab/downloads/complete
+            type: DirectoryOrCreate
+        - name: clamav-db
           persistentVolumeClaim:
-            claimName: downloads
+            claimName: clamav-db-pvc
+        - name: clamav-run
+          emptyDir: {}

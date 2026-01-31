@@ -33,11 +33,11 @@ releases:
     namespace: homelab
     values:
       - ./charts/jellyfin/values.yaml
-#  - name: clamav
-#    chart: ./charts/clamav
-#    namespace: homelab
-#    values:
-#      - ./charts/clamav/values.yaml
+  - name: clamav
+    chart: ./charts/clamav
+    namespace: homelab
+    values:
+      - ./charts/clamav/values.yaml
   - name: hello-world
     chart: ./charts/hello-world
     namespace: homelab

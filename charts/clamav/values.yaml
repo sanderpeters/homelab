@@ -1,6 +1,0 @@
-clamav:
-  image:
-    registry: docker.io
-    repository: mkodockx/docker-clamav
-    tag: 1.1.2-alpine
-    pullPolicy: IfNotPresent
