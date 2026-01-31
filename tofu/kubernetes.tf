@@ -52,7 +52,7 @@ resource "kubernetes_secret" "anubis_key" {
 
 resource "kubernetes_secret" "cloudflare_api_token" {
   metadata {
-    name = "cloudflare-api-token"
+    name      = "cloudflare-api-token"
     namespace = "cert-manager"
   }
 
@@ -65,7 +65,7 @@ resource "kubernetes_secret" "cloudflare_api_token" {
 
 resource "kubernetes_secret" "transmission_auth" {
   metadata {
-    name = "transmission-auth"
+    name      = "transmission-auth"
     namespace = "homelab"
   }
 

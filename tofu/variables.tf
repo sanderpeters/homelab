@@ -16,12 +16,12 @@ variable "root_domain" {
 }
 
 variable "subdomains" {
-  type = list(string)
+  type    = list(string)
   default = ["flood", "cockpit", "grafana", "watch"]
 }
 
 variable "anubis_private_key" {
-  type = string
+  type      = string
   sensitive = true
 }
 
@@ -30,6 +30,6 @@ variable "transmission_username" {
 }
 
 variable "transmission_password" {
-  type = string
+  type      = string
   sensitive = true
 }
