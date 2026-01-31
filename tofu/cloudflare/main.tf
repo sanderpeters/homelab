@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source  = "registry.opentofu.org/cloudflare/cloudflare"
+      version = ">= 1.0.0"
+    }
+  }
+}
+
 provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }

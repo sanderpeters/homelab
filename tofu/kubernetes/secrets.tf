@@ -1,8 +1,3 @@
-provider "kubernetes" {
-  config_path    = "~/.kube/config"
-  config_context = "Default"
-}
-
 resource "random_bytes" "anubis_key" {
   length = 32
 }

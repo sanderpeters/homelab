@@ -14,3 +14,7 @@ variable "cloudflare_zone_id" {
 variable "root_domain" {
   type = string
 }
+
+variable "subdomains" {
+  type = list(string)
+}
