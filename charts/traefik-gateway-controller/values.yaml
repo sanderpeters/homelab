@@ -41,7 +41,7 @@ traefik:
     name: traefik-gateway
     namespace: traefik-gateway-controller
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-staging-issuer
+      cert-manager.io/cluster-issuer: letsencrypt-production-issuer
     listeners:
       web:
         port: 8000
