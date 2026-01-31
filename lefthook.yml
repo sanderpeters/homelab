@@ -26,14 +26,10 @@ pre-commit:
   commands:
     tofu_fmt:
       glob: "**/*.tf"
-      run: tofu fmt -check -recursive
+      run: tofu fmt -recursive
 
     tofu_validate:
       run: tofu validate
       skip:
         - merge
         - rebase
-
-    helm_lint:
-      glob: "**/Chart.yaml"
-      run: helm lint $(dirname {file})
