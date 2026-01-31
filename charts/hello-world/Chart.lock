@@ -1,6 +1,0 @@
-dependencies:
-- name: anubis
-  repository: file://../anubis
-  version: 0.1.0
-digest: sha256:3535650c85cd865a8f29159782fa7c891e9f6516ffa458fb7b8f646b1da2d3d3
-generated: "2025-12-20T19:16:03.642291579+01:00"

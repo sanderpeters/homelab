@@ -1,3 +1,0 @@
-target: "http://localhost:3000"
-domain: "sanderpeters.cloud"
-service: "hello-world"

@@ -1,4 +1,0 @@
-anubis:
-  target: "http://localhost:80"
-  domain: "sanderpeters.cloud"
-  service: "hello-world"

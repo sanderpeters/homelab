@@ -1,7 +1,0 @@
-apiVersion: v2
-name: hello-world
-version: 0.1.0
-dependencies:
-  - name: anubis
-    version: "*"
-    repository: "file://../anubis"
