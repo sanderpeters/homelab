@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: gateway-tls
   issuerRef:
-    name: letsencrypt-staging-issuer
+    name: letsencrypt-production-issuer
     kind: ClusterIssuer
   dnsNames:
     - sanderpeters.cloud
