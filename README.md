@@ -9,6 +9,7 @@
 ![OpenTofu Badge](https://img.shields.io/badge/OpenTofu-FFDA18?logo=opentofu&logoColor=000&style=flat)
 ![Python Badge](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff&style=flat)
 ![Cloudflare Badge](https://img.shields.io/badge/Cloudflare-F38020?logo=cloudflare&logoColor=fff&style=flat)
+![Ansible Badge](https://img.shields.io/badge/Ansible-E00?logo=ansible&logoColor=fff&style=flat)
 
 This repository contains my personal homelab setup, built to experiment with Kubernetes, Helm, and other self-hosted tooling on a single-node cluster. The ultimate goal is to create a home-grown platform for streaming content to my devices around the house.
 

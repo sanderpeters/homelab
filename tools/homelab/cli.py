@@ -8,7 +8,8 @@ import json
 
 tofu = local["tofu"]
 helmfile = local["helmfile"]
-kubectl = local["kubectl"]
+galaxy = local["ansible-galaxy"]
+playbook = local["ansible-playbook"]
 
 console = Console()
 
@@ -24,11 +25,25 @@ def init():
     with local.cwd("infra/tofu"):
         tofu("init")
 
+    with local.cwd("infra/ansible"):
+        galaxy("collection", "install", "-r", "collections/requirements.yml")
+
 @app.command
 def deploy():
     """
     Deploys all OpenTofu and Helm charts, with a summary of changes.
     """
+    console.rule("Ansible Deployment")
+
+    with local.cwd("infra/ansible"):
+        with console.status("Upgrading archlinux node…"):
+            try:
+                output = playbook("-i", "inventory.ini", "upgrade.yml")
+            except Exception as e:
+                console.print(f"[bold red]Ansible failed:[/] {e}")
+                return
+        print(output)
+
     console.rule("OpenTofu Deployment")
 
     with local.cwd("infra/tofu"):
@@ -42,7 +57,7 @@ def deploy():
         plan = tofu("show", "tfplan")
         print(plan)
 
-        if (Confirm.ask("Do you want to apply the changes?", default=True)):
+        if Confirm.ask("Do you want to apply the changes?", default=True):
             with console.status("Applying OpenTofu…"):
                 tofu("apply", "tfplan")
         else:
