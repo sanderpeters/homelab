@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/tools"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "deps"
+
+  - package-ecosystem: "helm"
+    directory: "infra/charts/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "terraform"
+    directory: "infra/tofu/"
+    schedule:
+      interval: "daily"
