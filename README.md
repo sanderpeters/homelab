@@ -11,6 +11,9 @@
 
 This repository contains my personal homelab setup, built to experiment with Kubernetes, Helm, and other self-hosted tooling on a single-node cluster. The ultimate goal is to create a home-grown platform for streaming content to my devices around the house.
 
+> [!WARNING]
+> Use at your own risk! I take no responsibility for any damage… including spontaneously exploding nodes. 
+
 ## Installation
 ![](.github/assets/installation.gif)
 
