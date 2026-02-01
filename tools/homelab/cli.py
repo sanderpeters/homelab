@@ -50,7 +50,7 @@ def deploy():
 
     tfplan_path = Path("infra/tofu/tfplan")
     if tfplan_path.exists():
-        tfplan_path.unlink()  # deletes the file
+        tfplan_path.unlink()
         console.print("[dim]Removed temporary plan file[/]")
 
 
