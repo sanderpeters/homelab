@@ -1,18 +1,24 @@
 jellyfin:
   resources:
     requests:
-      memory: "1Gi"
-      cpu: "500m"
+      memory: 1Gi
+      cpu: 500m
     limits:
-      memory: "4Gi"
-      cpu: "2000m"
+      memory: 4Gi
+      cpu: 2000m
+
+  dnsPolicy: ClusterFirstWithHostNet
+  podPrivileges:
+    hostNetwork: true
+  jellyfin:
+    enableDLNA: true
 
   securityContext:
     privileged: true
 
   persistence:
     config:
-      enabled: false  # Let it use emptyDir for /config
+      enabled: false
     media:
       enabled: true
       type: hostPath
