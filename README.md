@@ -12,8 +12,6 @@
 This repository contains my personal homelab setup, built to experiment with Kubernetes, Helm, and other self-hosted tooling on a single-node cluster. The ultimate goal is to create a home-grown platform for streaming content to my devices around the house.
 
 ## Installation
-
----
 ![](.github/installation.gif)
 
 In order to use the tools, the following must be run:
@@ -24,8 +22,6 @@ source .venv/bin/activate
 
 pip install -e .
 ```
-
----
 
 ## Deployment
 ![Deploy](.github/deploy.gif)
