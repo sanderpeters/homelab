@@ -1,7 +1,10 @@
 from cyclopts import App
-from plumbum import local, FG
+from plumbum import local, FG, BG
 from rich.console import Console
 from rich.spinner import Spinner
+from rich.prompt import Confirm
+from pathlib import Path
+import json
 
 tofu = local["tofu"]
 helmfile = local["helmfile"]
@@ -27,25 +30,43 @@ def deploy():
     Deploys all OpenTofu and Helm charts, with a summary of changes.
     """
     console.rule("OpenTofu Deployment")
-    with console.status("[bold green]Applying OpenTofu…[/]") as status:
-        with local.cwd("infra/tofu"):
+
+    with local.cwd("infra/tofu"):
+        with console.status("Creating plan…"):
             try:
-                tofu("apply", "-auto-approve", "-json")
+                tofu("plan", "-out=tfplan")
             except Exception as e:
                 console.print(f"[bold red]Tofu failed:[/] {e}")
                 return
 
+        plan = tofu("show", "tfplan")
+        print(plan)
+
+        if (Confirm.ask("Do you want to apply the changes?", default=True)):
+            with console.status("Applying OpenTofu…"):
+                tofu("apply", "tfplan")
+        else:
+            console.print("[yellow]❌ Deployment cancelled[/]")
+
+    tfplan_path = Path("infra/tofu/tfplan")
+    if tfplan_path.exists():
+        tfplan_path.unlink()  # deletes the file
+        console.print("[dim]Removed temporary plan file[/]")
+
+
     console.rule("Helmfile Deployment")
-    with console.status("[bold blue]Applying Helmfile…[/]") as status:
+    with console.status("Applying Helmfile…"):
         with local.cwd("infra"):
             try:
-                helmfile("apply")
+                output = helmfile("-q", "apply")
             except Exception as e:
                 console.print(f"[bold red]Helmfile failed:[/] {e}")
                 return
+        print(output)
 
     console.rule("Deployment Summary")
     console.print("✅ Deployment Complete")
+    console.print()
 
 @app.default
 def default_action():
