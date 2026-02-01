@@ -18,10 +18,10 @@ This repository contains my personal homelab setup, built to experiment with Kub
 
 In order to use the tools, the following must be run:
 ```shell
-cd tools/
-pyhton3 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 
+cd tools/
 pip install -e .
 ```
 
