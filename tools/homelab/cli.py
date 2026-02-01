@@ -73,7 +73,7 @@ def deploy():
     with console.status("Applying Helmfile…"):
         with local.cwd("infra"):
             try:
-                output = helmfile("-q", "apply")
+                output = helmfile("-q", "apply", "--skip-deps", "--skip-refresh")
             except Exception as e:
                 console.print(f"[bold red]Helmfile failed:[/] {e}")
                 return
