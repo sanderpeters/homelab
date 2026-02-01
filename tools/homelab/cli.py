@@ -61,7 +61,7 @@ def deploy():
             with console.status("Applying OpenTofu…"):
                 tofu("apply", "tfplan")
         else:
-            console.print("[yellow]❌ Deployment cancelled[/]")
+            console.print("[bold red]Deployment cancelled[/]")
 
     tfplan_path = Path("infra/tofu/tfplan")
     if tfplan_path.exists():
@@ -80,7 +80,7 @@ def deploy():
         print(output)
 
     console.rule("Deployment Summary")
-    console.print("✅ Deployment Complete")
+    console.print("[bold green]Deployment complete[/]")
     console.print()
 
 @app.default
