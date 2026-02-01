@@ -8,11 +8,9 @@
 ![Helm Badge](https://img.shields.io/badge/Helm-0F1689?logo=helm&logoColor=fff&style=flat)
 ![OpenTofu Badge](https://img.shields.io/badge/OpenTofu-FFDA18?logo=opentofu&logoColor=000&style=flat)
 ![Python Badge](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff&style=flat)
+![Cloudflare Badge](https://img.shields.io/badge/Cloudflare-F38020?logo=cloudflare&logoColor=fff&style=flat)
 
 This repository contains my personal homelab setup, built to experiment with Kubernetes, Helm, and other self-hosted tooling on a single-node cluster. The ultimate goal is to create a home-grown platform for streaming content to my devices around the house.
-
-> [!WARNING]
-> Use at your own risk! I take no responsibility for any damage… including spontaneously exploding nodes. 
 
 ## Installation
 ![](.github/assets/installation.gif)
@@ -32,4 +30,5 @@ pip install -e .
 The deployment can be done using the homelab CLI:
 ```shell
 ./bin/homelab deploy
+
 ```
