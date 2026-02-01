@@ -16,13 +16,13 @@ releases:
     namespace: cert-manager
     createNamespace: true
     values:
-      - ./charts/cert-manager/values.yaml
+      - charts/cert-manager/values.yaml
   - name: traefik-gateway-controller
     chart: ./charts/traefik-gateway-controller
     namespace: traefik-gateway-controller
     createNamespace: true
     values:
-      - ./charts/traefik-gateway-controller/values.yaml
+      - charts/traefik-gateway-controller/values.yaml
   - name: deluge
     chart: ./charts/deluge
     namespace: homelab
@@ -32,14 +32,9 @@ releases:
     chart: ./charts/jellyfin
     namespace: homelab
     values:
-      - ./charts/jellyfin/values.yaml
+      - charts/jellyfin/values.yaml
   - name: clamav
     chart: ./charts/clamav
     namespace: homelab
     values:
-      - ./charts/clamav/values.yaml
-  - name: hello-world
-    chart: ./charts/hello-world
-    namespace: homelab
-    values:
-      - ./charts/hello-world/values.yaml
+      - charts/clamav/values.yaml
