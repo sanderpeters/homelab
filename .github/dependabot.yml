@@ -12,7 +12,7 @@ updates:
     schedule:
       interval: "daily"
 
-  - package-ecosystem: "terraform"
+  - package-ecosystem: "opentofu"
     directory: "infra/tofu/"
     schedule:
       interval: "daily"
