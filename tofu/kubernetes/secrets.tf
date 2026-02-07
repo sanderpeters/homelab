@@ -10,3 +10,21 @@ resource "kubernetes_secret" "cloudflare_api_token" {
 
   type = "Opaque"
 }
+
+resource "kubernetes_secret" "repository" {
+  metadata {
+    name      = "repo"
+    namespace = "argocd"
+
+    labels = {
+      "argocd.argoproj.io/secret-type" = "repository"
+    }
+  }
+
+  data = {
+    url  = "https://github.com/sanderpeters/homelab"
+    type = "git"
+  }
+
+  type = "Opaque"
+}

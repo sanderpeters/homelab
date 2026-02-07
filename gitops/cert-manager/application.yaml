@@ -13,6 +13,7 @@ spec:
     chart: cert-manager
     targetRevision: 1.16.2
     helm:
+      installCRDs: true
       values: |
         installCRDs: true
         crds:
