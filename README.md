@@ -13,21 +13,12 @@
 
 This repository contains my personal homelab setup, built to experiment with Kubernetes, Helm, and other self-hosted tooling on a single-node cluster. The ultimate goal is to create a home-grown platform for streaming content to my devices around the house.
 
-## Installation
-In order to use the tools, the following must be run:
-```shell
-python3 -m venv .venv
-source .venv/bin/activate
-
-cd tools/
-pip install -e .
-```
-
 ## Deployment
 ![Deploy](.github/assets/deploy.gif)
 
-The deployment can be done using the homelab CLI:
+The node can be updated by using the ansible task
 ```shell
-./bin/homelab deploy
-
+task ansible
 ```
+
+The other parts can be rolled out by using OpenTofu and the helm charts.
