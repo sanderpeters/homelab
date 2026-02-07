@@ -20,11 +20,11 @@ resource "cloudflare_record" "root" {
 }
 
 resource "cloudflare_record" "subdomain" {
-  for_each = toset(var.subdomains)
+  for_each = var.subdomains
   zone_id  = var.zone_id
-  name     = each.value
+  name     = each.value.name
   type     = "CNAME"
   content  = var.root_domain
   ttl      = 1
-  proxied  = true
+  proxied  = each.value.proxied
 }

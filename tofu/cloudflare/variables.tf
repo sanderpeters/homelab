@@ -16,5 +16,9 @@ variable "root_domain" {
 }
 
 variable "subdomains" {
-  type = list(string)
+  type = map(object({
+    name    = string
+    proxied = optional(bool, true)
+  }))
+  default = {}
 }

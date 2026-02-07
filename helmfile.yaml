@@ -3,14 +3,19 @@ repositories:
     url: https://k8s-at-home.com/charts
   - name: jetstack
     url: https://charts.jetstack.io
-  - name: prometheus-community
-    url: https://prometheus-community.github.io/helm-charts
   - name: traefik
     url: https://traefik.github.io/charts
   - name: jellyfin
     url: https://jellyfin.github.io/jellyfin-helm
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
 ---
 releases:
+  - name: argocd
+    chart: ./charts/argocd
+    namespace: argocd
+    values:
+      - charts/argocd/values.yaml
   - name: cert-manager
     chart: ./charts/cert-manager
     namespace: cert-manager
@@ -26,8 +31,6 @@ releases:
   - name: deluge
     chart: ./charts/deluge
     namespace: homelab
-    values:
-      #- ./charts/deluge/values.yaml
   - name: jellyfin
     chart: ./charts/jellyfin
     namespace: homelab

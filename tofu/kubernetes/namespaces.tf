@@ -37,3 +37,9 @@ resource "kubernetes_namespace_v1" "tofu" {
     name = "tofu"
   }
 }
+
+resource "kubernetes_namespace_v1" "argocd" {
+  metadata {
+    name = "argocd"
+  }
+}
