@@ -43,3 +43,15 @@ resource "kubernetes_namespace_v1" "argocd" {
     name = "argocd"
   }
 }
+
+resource "kubernetes_namespace_v1" "cert_manager" {
+  metadata {
+    name = "cert-manager"
+  }
+}
+
+resource "kubernetes_namespace_v1" "traefik" {
+  metadata {
+    name = "traefik"
+  }
+}
