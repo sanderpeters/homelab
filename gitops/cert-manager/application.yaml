@@ -13,8 +13,14 @@ spec:
     chart: cert-manager
     targetRevision: 1.16.2
     helm:
-      valueFiles:
-        - values.yaml
+      values: |
+        installCRDs: true
+        crds:
+          enabled: true
+        config:
+          apiVersion: controller.config.cert-manager.io/v1alpha1
+          kind: ControllerConfiguration
+          enableGatewayAPI: true
 
   destination:
     server: https://kubernetes.default.svc

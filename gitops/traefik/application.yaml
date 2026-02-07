@@ -13,8 +13,63 @@ spec:
     chart: traefik
     targetRevision: 38.0.1
     helm:
-      valueFiles:
-        - values.yaml
+      values: |
+         providers:
+             kubernetesGateway:
+               enabled: true
+             kubernetesCRD:
+               enabled: false
+             kubernetesIngress:
+               enabled: false
+             
+             service:
+               type: ClusterIP
+             
+             resources:
+               limits:
+                 cpu: 200m
+                 memory: 256Mi
+               requests:
+                 cpu: 100m
+                 memory: 128Mi
+             
+             gatewayClass:
+               enabled: true
+             
+             ports:
+               web:
+                 port: 8000
+                 exposedPort: 80
+                 hostPort: 80
+                 redirections:
+                   entryPoint:
+                     to: websecure
+                     scheme: https
+                     permanent: true
+               websecure:
+                 port: 8443
+                 exposedPort: 443
+                 hostPort: 443
+             
+             gateway:
+               enabled: true
+               name: traefik
+               namespace: traefik
+               annotations:
+                 cert-manager.io/cluster-issuer: letsencrypt-production-issuer
+               listeners:
+                 web:
+                   port: 8000
+                   protocol: HTTP
+                   namespacePolicy:
+                     from: All
+                 websecure:
+                   port: 8443
+                   protocol: HTTPS
+                   certificateRefs:
+                     - name: gateway-tls
+                   namespacePolicy:
+                     from: All 
 
   destination:
     server: https://kubernetes.default.svc
