@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://jellyfin.github.io/jellyfin-helm
     chart: jellyfin
-    targetRevision: HEAD
+    targetRevision: ""
     helm:
       values: |
         resources:
