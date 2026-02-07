@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: gateway-tls
-  namespace: traefik-gateway-controller
+  namespace: traefik
 spec:
   secretName: gateway-tls
   issuerRef:

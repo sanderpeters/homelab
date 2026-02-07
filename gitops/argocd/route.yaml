@@ -7,8 +7,8 @@ metadata:
     traefik.io/router.middlewares: argocd-argocd-headers@kubernetescrd
 spec:
   parentRefs:
-    - name: traefik-gateway
-      namespace: traefik-gateway-controller
+    - name: traefik
+      namespace: traefik
       sectionName: websecure
   hostnames:
     - "argocd.sanderpeters.cloud"

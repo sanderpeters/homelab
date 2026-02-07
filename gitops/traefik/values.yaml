@@ -37,8 +37,8 @@ ports:
 
 gateway:
   enabled: true
-  name: traefik-gateway
-  namespace: traefik-gateway-controller
+  name: traefik
+  namespace: traefik
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production-issuer
   listeners:

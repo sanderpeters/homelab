@@ -5,8 +5,8 @@ metadata:
   namespace: homelab
 spec:
   parentRefs:
-    - name: traefik-gateway
-      namespace: traefik-gateway-controller
+    - name: traefik
+      namespace: traefik
       sectionName: websecure
   hostnames:
     - "watch.sanderpeters.cloud"
