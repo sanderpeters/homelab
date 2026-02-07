@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/sanderpeters/homelab
+    repoURL: https://jellyfin.github.io/jellyfin-helm
     chart: jellyfin
     targetRevision: 2.7.0
     helm:
