@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
+  name: cert-manager-issuers
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "10"
@@ -15,7 +15,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: traefik
+    namespace: cert-manager
 
   syncPolicy:
     automated:
