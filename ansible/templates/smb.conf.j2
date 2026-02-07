@@ -1,0 +1,14 @@
+[global]
+   workgroup = {{ samba_workgroup }}
+   security = user
+   map to guest = Bad User
+   server string = Ansible Samba Server
+
+[{{ samba_share_name }}]
+   path = {{ samba_share_path }}
+   browseable = yes
+   read only = no
+   guest ok = yes
+   force group = sambashare
+   create mask = 0664
+   directory mask = 2775

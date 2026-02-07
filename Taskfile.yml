@@ -8,3 +8,4 @@ tasks:
     cmds:
       - ansible-galaxy collection install -r collections/requirements.yml
       - ansible-playbook -i inventory.ini upgrade.yml
+      - ansible-playbook -i inventory.ini samba.yml

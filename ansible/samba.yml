@@ -1,0 +1,63 @@
+- hosts: all
+  become: true
+
+  vars:
+    samba_user: sambauser
+    samba_share_name: Homelab
+    samba_share_path: /mnt/homelab/downloads/complete/
+    samba_workgroup: WORKGROUP
+
+  tasks:
+    - name: Ensure samba is installed
+      community.general.pacman:
+        name: samba
+        state: present
+
+    - name: Ensure wsdd is installed
+      community.general.pacman:
+        name: wsdd
+        state: present
+
+    - name: Ensure sambashare group exists
+      group:
+        name: sambashare
+        state: present
+
+    - name: Ensure samba share directory exists
+      file:
+        path: "{{ samba_share_path }}"
+        state: directory
+        owner: root
+        group: sambashare
+        mode: "2775"
+
+    - name: Configure samba (guest access)
+      template:
+        src: smb.conf.j2
+        dest: /etc/samba/smb.conf
+        owner: root
+        group: root
+        mode: "0644"
+        validate: "testparm -s %s"
+      notify: Restart samba
+
+    - name: Enable and start samba services
+      systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop:
+        - smb
+        - nmb
+
+    - name: Enable and start wsdd
+      systemd:
+        name: wsdd
+        enabled: true
+        state: started
+
+  handlers:
+    - name: Restart samba
+      systemd:
+        name: smb
+        state: restarted
