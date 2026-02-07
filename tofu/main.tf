@@ -1,5 +1,5 @@
 module "cloudflare" {
-  source             = "./cloudflare"
+  source             = "cloudflare"
   api_token          = var.cloudflare_api_token
   zone_id            = var.cloudflare_zone_id
   homelab_ip_address = var.homelab_ip_address
@@ -8,6 +8,6 @@ module "cloudflare" {
 }
 
 module "kubernetes" {
-  source               = "./kubernetes"
+  source               = "kubernetes"
   cloudflare_api_token = var.cloudflare_api_token
 }
