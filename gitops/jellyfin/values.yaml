@@ -1,0 +1,41 @@
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 500m
+  limits:
+    memory: 4Gi
+    cpu: 2000m
+
+dnsPolicy: ClusterFirstWithHostNet
+podPrivileges:
+  hostNetwork: true
+jellyfin:
+  enableDLNA: true
+
+securityContext:
+  privileged: true
+
+persistence:
+  config:
+    enabled: false
+  media:
+    enabled: true
+    type: hostPath
+    hostPath: /mnt/homelab/jellyfin/media
+
+volumes:
+  - name: cache
+    hostPath:
+      path: /mnt/homelab/jellyfin/cache
+      type: DirectoryOrCreate
+  - name: downloads
+    hostPath:
+      path: /mnt/homelab/downloads/complete
+      type: DirectoryOrCreate
+
+volumeMounts:
+  - name: cache
+    mountPath: /cache
+  - name: downloads
+    mountPath: /downloads
+    readOnly: true
