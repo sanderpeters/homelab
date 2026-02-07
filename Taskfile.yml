@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+tasks:
+  ansible:
+    dir: ansible/
+    cmds:
+      - ansible-galaxy collection install -r collections/requirements.yml
+      - ansible-playbook -i inventory.ini upgrade.yml
