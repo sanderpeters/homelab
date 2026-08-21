@@ -1,0 +1,30 @@
+apiVersion: k8s.keycloak.org/v2beta1
+kind: Keycloak
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  instances: 1
+  db:
+    vendor: mariadb
+    host: mariadb.mariadb.svc.cluster.local
+    port: 3306
+    database: keycloak
+    usernameSecret:
+      name: keycloak-db-credentials
+      key: username
+    passwordSecret:
+      name: keycloak-db-credentials
+      key: password
+  http:
+    httpEnabled: true
+    httpPort: 8080
+  hostname:
+    hostname: "login.sanderpeters.cloud"
+  proxy:
+    headers: xforwarded
+  ingress:
+    enabled: false
+  bootstrapAdmin:
+    user:
+      secret: keycloak-bootstrap-admin
