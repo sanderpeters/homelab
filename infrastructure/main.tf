@@ -6,3 +6,8 @@ module "cloudflare" {
   root_domain        = var.root_domain
   subdomains         = ["argocd", "journal"]
 }
+
+module "kubernetes" {
+  source               = "./kubernetes"
+  cloudflare_api_token = var.cloudflare_api_token
+}
