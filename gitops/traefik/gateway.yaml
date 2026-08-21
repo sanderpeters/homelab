@@ -3,12 +3,25 @@ kind: Gateway
 metadata:
   name: traefik
   namespace: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   gatewayClassName: traefik
   listeners:
     - name: web
       protocol: HTTP
       port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: websecure
+      protocol: HTTPS
+      port: 443
+      hostname: "*.sanderpeters.cloud"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: tls-certificate
       allowedRoutes:
         namespaces:
           from: All
