@@ -1,0 +1,21 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Ensure reflector is installed
+      community.general.pacman:
+        name: reflector
+        state: present
+
+    - name: Refresh pacman mirrors
+      command: >
+        reflector
+        --latest 10
+        --protocol https
+        --sort rate
+        --save /etc/pacman.d/mirrorlist
+      changed_when: true
+
+    - name: Full system upgrade (pacman -Syu)
+      community.general.pacman:
+        update_cache: yes
+        upgrade: yes
