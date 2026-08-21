@@ -1,6 +1,6 @@
 version: 2
 updates:
   - package-ecosystem: "opentofu"
-    directory: "infrastructure/"
+    directory: "infra/"
     schedule:
       interval: "daily"

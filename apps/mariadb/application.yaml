@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: local-path-provisioner
+  name: mariadb
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/sanderpeters/homelab
     targetRevision: master
-    path: gitops/local-path-provisioner
+    path: apps/mariadb
   destination:
     server: https://kubernetes.default.svc
-    namespace: local-path-storage
+    namespace: mariadb
   syncPolicy:
     automated:
       prune: true

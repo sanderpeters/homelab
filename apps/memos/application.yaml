@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/sanderpeters/homelab
     targetRevision: master
-    path: gitops/memos
+    path: apps/memos
   destination:
     server: https://kubernetes.default.svc
     namespace: memos
