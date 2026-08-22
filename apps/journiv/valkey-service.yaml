@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: journiv-valkey
+  namespace: journiv
+spec:
+  selector:
+    app: journiv-valkey
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: valkey

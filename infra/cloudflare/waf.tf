@@ -12,6 +12,9 @@ resource "cloudflare_ruleset" "zone_custom_firewall" {
     }
     expression  = "(http.host eq \"${var.login_hostname}\")"
     description = "Skip zone-wide challenge/threat rules for Keycloak - it needs to accept unchallenged server-to-server OIDC/admin API requests"
+    logging {
+      enabled = true
+    }
   }
 
   rules {

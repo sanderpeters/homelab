@@ -48,6 +48,8 @@ spec:
                 secretKeyRef:
                   name: journiv-secret-key
                   key: secret-key
+            - name: REDIS_URL
+              value: "redis://journiv-valkey:6379/0"
             - name: OIDC_ENABLED
               value: "true"
             - name: OIDC_ISSUER

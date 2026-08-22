@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journiv-valkey
+  namespace: journiv
+  labels:
+    app: journiv-valkey
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: journiv-valkey
+  template:
+    metadata:
+      labels:
+        app: journiv-valkey
+    spec:
+      containers:
+        - name: valkey
+          image: valkey/valkey:9.0-alpine
+          ports:
+            - name: valkey
+              containerPort: 6379
