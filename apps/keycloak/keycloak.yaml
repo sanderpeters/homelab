@@ -6,9 +6,9 @@ metadata:
 spec:
   instances: 1
   db:
-    vendor: mariadb
-    host: mariadb.mariadb.svc.cluster.local
-    port: 3306
+    vendor: postgres
+    host: postgres.postgres.svc.cluster.local
+    port: 5432
     database: keycloak
     usernameSecret:
       name: keycloak-db-credentials

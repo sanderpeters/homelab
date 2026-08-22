@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mariadb
+  name: journiv
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/sanderpeters/homelab
     targetRevision: master
-    path: apps/mariadb
+    path: apps/journiv
   destination:
     server: https://kubernetes.default.svc
-    namespace: mariadb
+    namespace: journiv
   syncPolicy:
     automated:
       prune: true

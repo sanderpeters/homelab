@@ -1,8 +1,8 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: memos
-  namespace: memos
+  name: journiv
+  namespace: journiv
 spec:
   parentRefs:
     - name: traefik
@@ -11,5 +11,5 @@ spec:
     - journal.sanderpeters.cloud
   rules:
     - backendRefs:
-        - name: memos
+        - name: journiv
           port: 80

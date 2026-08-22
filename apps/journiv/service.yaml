@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: memos
-  namespace: memos
+  name: journiv
+  namespace: journiv
 spec:
   selector:
-    app: memos
+    app: journiv
   ports:
     - protocol: TCP
       port: 80
