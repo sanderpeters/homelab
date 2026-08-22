@@ -14,3 +14,8 @@ variable "cloudflare_zone_id" {
 variable "root_domain" {
   type = string
 }
+
+variable "login_subdomain" {
+  type    = string
+  default = "login"
+}

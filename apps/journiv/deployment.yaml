@@ -48,6 +48,21 @@ spec:
                 secretKeyRef:
                   name: journiv-secret-key
                   key: secret-key
+            - name: OIDC_ENABLED
+              value: "true"
+            - name: OIDC_ISSUER
+              value: "https://login.sanderpeters.cloud/realms/homelab"
+            - name: OIDC_CLIENT_ID
+              value: "journiv"
+            - name: OIDC_REDIRECT_URI
+              value: "https://journal.sanderpeters.cloud/api/v1/auth/oidc/callback"
+            - name: OIDC_AUTO_PROVISION
+              value: "true"
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: journiv-oidc-credentials
+                  key: client-secret
           volumeMounts:
             - name: data
               mountPath: /data

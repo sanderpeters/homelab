@@ -18,3 +18,7 @@ variable "root_domain" {
 variable "subdomains" {
   type = list(string)
 }
+
+variable "login_hostname" {
+  type = string
+}
